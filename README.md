@@ -1,0 +1,75 @@
+# UTM Attribution Funnel
+
+Analyze which acquisition sources (`utm_source`) bring **high-quality users** who engage and retain.
+
+---
+
+## How to Run
+
+1) Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+2) Run the pipeline
+```bash
+python main.py
+```
+This will:
+- Clean and preprocess the raw CSV
+- Build contact, UTM, and event tables
+- Roll up user-level engagement metrics
+- Save results (CSVs + charts) in the `outputs/` folder
+
+---
+
+## Key Outputs
+
+### 1) Acquisition Volume by UTM Source
+![Acquisition Volume](outputs/acquisition_volume_by_utm.png)
+
+- The largest bucket is **`unknown`** (~2000 users).  
+  - This is a **serious attribution gap** — most of our traffic sources are not being captured.  
+  - Since these users are highly engaged and retained, identifying their true source is critical.  
+- **`alexey_linkedin`**: ~400 users.  
+- **`dtc_newsletter`**: ~250 users.  
+- Other channels (`activecampaign`, `adrian_test`, `chatgpt.com`) have negligible traffic.
+
+**Interpretation:** LinkedIn and newsletter are real acquisition sources, but without fixing attribution, most of our acquisition volume is effectively invisible.
+
+### 2) Engagement Rate by UTM Source
+![Engagement Rate](outputs/engagement_rate_by_utm.png)
+
+- **`unknown`** users: ~78% engaged → very high.  
+- **`activecampaign`**: ~75% engaged (excellent), though tiny volume.  
+- **`alexey_linkedin`**: ~15% engaged (low).  
+- **`dtc_newsletter`**: ~9% engaged (very low).  
+- Other minor sources are close to zero.  
+
+**Interpretation:** LinkedIn and newsletter bring users, but they **don’t activate well**. Users from these sources sign up but rarely take meaningful actions afterward.
+
+### 3) Retention Rate by UTM Source
+![Retention Rate](outputs/retention_rate_by_utm.png)
+
+- **`unknown`**: ~90% retained (extremely strong).  
+- **`activecampaign`**: ~91% retained (also strong, but tiny volume).  
+- **`alexey_linkedin`**: ~40% retained.  
+- **`dtc_newsletter`**: ~36% retained.  
+- Other sources show negligible retention.  
+
+**Interpretation:** Users from `unknown` and `activecampaign` don’t just engage once. They **stick around**. By contrast, LinkedIn and newsletter users mostly churn after initial signup.
+
+CSV results are also saved to `outputs/`:
+- `per_utm_metrics.csv` — acquisition, engagement, retention by source
+- `users_table.csv` — per-user rollup with funnel flags
+- `event_category_mix.csv` — distribution of event categories per source
+
+---
+
+## Business Takeaways
+
+- **Fix attribution**: The large **`unknown`** bucket is high-quality, capturing its true source will unlock ROI insights.
+- **Optimize activation**: `alexey_linkedin` and `dtc_newsletter` drive signups but underperform on engagement → improve post‑signup onboarding.
+- **Scale high‑intent**: `activecampaign` shows great quality; explore how to replicate this channel with more volume.
+
+---
