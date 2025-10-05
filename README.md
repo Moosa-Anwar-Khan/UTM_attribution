@@ -15,11 +15,15 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
-This will:
+This will automatically:
+
 - Clean and preprocess the raw CSV
 - Build contact, UTM, and event tables
 - Roll up user-level engagement metrics
-- Save results (CSVs + charts) in the `outputs/` folder
+- Compute per-source KPIs (acquisition, engagement, retention)
+- Save CSVs and charts inside the outputs/ folder
+
+- Create a DuckDB database at outputs/duckdb/attribution.duckdb. This DuckDB file contains all processed tables (contacts, utm, events, users, metrics, cat_mix) so you can query the entire data model directly using SQL.
 
 ---
 
@@ -68,7 +72,7 @@ CSV results are also saved to `outputs/`:
 
 ## Business Takeaways
 
-- **Fix attribution**: The large **`unknown`** bucket is high-quality, capturing its true source will unlock ROI insights.
+- The data in that big undefined category is valuable. If we track its true origin, we can better analyze and improve our business results.
 - **Optimize activation**: `alexey_linkedin` and `dtc_newsletter` drive signups but underperform on engagement → improve post‑signup onboarding.
 - **Scale high‑intent**: `activecampaign` shows great quality; explore how to replicate this channel with more volume.
 
