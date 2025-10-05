@@ -72,7 +72,7 @@ CSV results are also saved to `outputs/`:
 
 ## Business Takeaways
 
-- **The data in that big undefined category is valuable. If we track its true origin, we can better analyze and improve our business results.
+- The data in that big undefined category is valuable. If we track its true origin, we can better analyze and improve our business results.
 - **Optimize activation**: `alexey_linkedin` and `dtc_newsletter` drive signups but underperform on engagement → improve post‑signup onboarding.
 - **Scale high‑intent**: `activecampaign` shows great quality; explore how to replicate this channel with more volume.
 
